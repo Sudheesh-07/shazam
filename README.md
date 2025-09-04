@@ -9,9 +9,9 @@ Transform natural language into bash commands using your own GGUF model!
 
 ```
 shazam-cli/
-├── models/                # Directory where your model should be
-│   └──download_link.txt   # Drive link to download the model 
 ├── shazam/                # Main package
+│   ├── models/                # Directory where your model should be
+│        └──download_link.txt   # Drive link to download the model 
 │   ├── __init__.py        # Package init
 │   ├── cli.py             # CLI interface
 │   ├── config.py          # Configuration management
@@ -118,7 +118,7 @@ jarvis --config "model_params.max_tokens=200"
 The configuration is stored at `~/.shazam/config.yaml`:
 
 ```yaml
-command_name: your_model_name
+command_name: your_assistant_name
 model_params:
   max_tokens: 150
   stop_sequences:

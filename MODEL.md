@@ -13,7 +13,7 @@ I have fine-tuned Microsoft's Phi-3-mini-4k-instruct model using the [NL2Bash da
 
 ```bash
 # Navigate to the models directory
-cd models/
+cd shazam/models/
 
 # Download the fine-tuned model (check download_link.txt for the current URL)
 ```
