@@ -1,6 +1,30 @@
-# 🚀 Shazam CLI - AI-Powered Bash Command Generator
+# ⚡ Shazam CLI - AI-Powered Bash Command Generator
 
 Transform natural language into bash commands using your own GGUF model!
+
+## To use the tool you need to download and load the model in models/ directory 
+### To know how to download and use the model refer to [MODEL_GUIDE.md](MODEL_GUIDE.md)
+
+## 📁 Project Structure
+
+```
+shazam-cli/
+├── models/                # Directory where your model should be
+│   └──download_link.txt   # Drive link to download the model 
+├── shazam/                # Main package
+│   ├── __init__.py        # Package init
+│   ├── cli.py             # CLI interface
+│   ├── config.py          # Configuration management
+│   └── model.py           # GGUF model interface
+├── install.py             # Installation script
+├── setup.py               # Package setup
+├── requirements.txt       # Dependencies
+├── .gitignore             # Git ignore rules
+├── LICENSE                # MIT license 
+├── README.md              # Main documentation
+├── MODEL_GUIDE.md         # Model setup guide
+└── CONTRIBUTING.md        # This file
+```
 
 ## ✨ Features
 
@@ -42,7 +66,7 @@ python -m shazam --setup
 
 ## 🚀 Quick Start
 
-1. **First Run**: The setup wizard will guide you through configuration
+1. **First Run (Optional)**: The setup wizard will guide you through configuration
    ```bash
    shazam --setup
    ```
@@ -60,13 +84,6 @@ python -m shazam --setup
    # Automatically runs: df -h
    ```
 
-4. **Edit Before Execution**: Type 'e' when prompted to edit the command
-   ```bash
-   jarvis "delete all log files"
-   # Generated: find . -name "*.log" -delete
-   # Type 'e' to edit before execution
-   ```
-
 ## 💡 Usage Examples
 
 ```bash
@@ -80,13 +97,6 @@ jarvis -r "show running processes"
 jarvis -r "check memory usage"
 jarvis -r "display network connections"
 
-# Git operations
-jarvis "show git status and recent commits"
-jarvis "create new branch feature-x"
-
-# Text processing
-jarvis "find TODO comments in code"
-jarvis "replace tabs with spaces in all files"
 ```
 
 ## ⚙️ Configuration
@@ -108,8 +118,27 @@ jarvis --config "model_params.max_tokens=200"
 The configuration is stored at `~/.shazam/config.yaml`:
 
 ```yaml
-model_path: "/path/to/your/model.gguf"
-command_name: "jarvis"
+command_name: your_model_name
 model_params:
   max_tokens: 150
-  temperature: 0.
+  stop_sequences:
+  - '
+
+
+    '
+  - '```'
+  temperature: 0.1
+  top_p: 0.9
+model_path: path/to/your/model.gguf
+safety:
+  dangerous_commands:
+  - rm -rf /
+  - mkfs
+  - dd if=
+  - shutdown
+  - reboot
+  - halt
+  - sudo rm
+  - chmod 777 /
+  require_confirmation: true
+```
