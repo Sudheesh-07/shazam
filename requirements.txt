@@ -1,0 +1,4 @@
+llama-cpp-python>=0.2.0
+click>=8.0.0
+colorama>=0.4.4
+pyyaml>=6.0
