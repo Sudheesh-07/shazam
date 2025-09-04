@@ -21,6 +21,10 @@ setup(
     author="Sudheesh Shetty",
     author_email="sudheeshshetty48l@gmail.com",
     packages=find_packages(),
+    include_package_data=True,  
+    package_data={
+        "shazam": ["models/*.gguf"],   
+    },
     install_requires=read_requirements(),
     entry_points={
         'console_scripts': [

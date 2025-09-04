@@ -8,12 +8,27 @@ import yaml
 import json
 from pathlib import Path
 from typing import Dict, Any, Optional
+import shutil
+import importlib.resources as pkg_resources
 
 class Config:
     def __init__(self):
         self.config_dir = Path.home() / '.shazam'
         self.config_file = self.config_dir / 'config.yaml'
+        self.models_dir = self.config_dir / "models"
+        self.models_dir.mkdir(parents=True, exist_ok=True)
         self.config = self._load_config()
+        self._ensure_default_model()
+
+    def _ensure_default_model(self):
+        default_model_path = self.models_dir / "unsloth.Q4_K_M.gguf"
+        if not default_model_path.exists():
+            try:
+                with pkg_resources.path("shazam.models", "unsloth.Q4_K_M.gguf") as src:
+                    shutil.copy(src, default_model_path)
+                print(f"✅ Installed default model to {default_model_path}")
+            except Exception as e:
+                print(f"⚠️ Could not copy default model: {e}")
     
     def _load_config(self) -> Dict[str, Any]:
         """Load configuration from file or create default"""
@@ -26,7 +41,7 @@ class Config:
     def _create_default_config(self) -> Dict[str, Any]:
         """Create default configuration"""
         return {
-            'model_path': '',
+            'model_path': str(self.models_dir / "unsloth.Q4_K_M.gguf"),
             'command_name': 'jarvis',
             'model_params': {
                 'max_tokens': 150,
@@ -89,7 +104,11 @@ class Config:
         
         # Get model path
         while True:
-            model_path = "models/unsloth.Q4_K_M.gguf"
+            default_model_path = self.config_dir / "models" / "unsloth.Q4_K_M.gguf"
+            model_path = input(f"Enter model path [default: {default_model_path}]: ").strip() or str(default_model_path)
+
+                # Expand ~ and resolve relative paths
+            model_path = os.path.abspath(os.path.expanduser(model_path))
             if not model_path:
                 print("❌ Model path cannot be empty!")
                 continue

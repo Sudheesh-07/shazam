@@ -108,20 +108,20 @@ def install_shazam():
             command_name = config.get('command_name', 'jarvis')
             
             # Offer shell integration
-            print()
-            if input(f"Install shell integration for better readline experience? (Y/n): ").lower() != 'n':
-                try:
-                    from shazam.shell_integration import install_shell_function
-                    install_shell_function()
-                    print()
-                    print("🎉 Installation completed successfully with shell integration!")
-                    print(f"💡 Restart your shell and try: {command_name} 'list files'")
-                    print(f"💡 The command will appear on your prompt line - just press Enter!")
-                    print(f"💡 For auto-execution: {command_name} -r 'show disk usage'")
-                    return True
-                except Exception as e:
-                    print(f"⚠️  Shell integration failed: {e}")
-                    print("   You can install it later with: python -m shazam --install-shell")
+            # print()
+            # if input(f"Install shell integration for better readline experience? (Y/n): ").lower() != 'n':
+            #     try:
+            #         from shazam.shell_integration import install_shell_function
+            #         install_shell_function()
+            #         print()
+            #         print("🎉 Installation completed successfully with shell integration!")
+            #         print(f"💡 Restart your shell and try: {command_name} 'list files'")
+            #         print(f"💡 The command will appear on your prompt line - just press Enter!")
+            #         print(f"💡 For auto-execution: {command_name} -r 'show disk usage'")
+            #         return True
+            #     except Exception as e:
+            #         print(f"⚠️  Shell integration failed: {e}")
+            #         print("   You can install it later with: python -m shazam --install-shell")
             
             # Create dynamic command as fallback
             if create_dynamic_command(command_name):
